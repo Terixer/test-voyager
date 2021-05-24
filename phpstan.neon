@@ -1,0 +1,20 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - app
+        - database
+        - tests
+
+    level: 8
+
+    ignoreErrors:
+
+    excludePaths:
+        - tests/bootstrap.php
+        - database/seeders/*
+        - app/Http/Middleware/Authenticate.php
+
+    checkMissingIterableValueType: false
