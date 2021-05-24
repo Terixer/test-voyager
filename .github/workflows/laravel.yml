@@ -7,8 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  laravel-tests:
-
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,8 +27,10 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - name: PhpStan
       env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+      run: php vendor/bin/phpstan analyse --memory-limit=2G
+    - name: PhpCs
+      run: php vendor/bin/php-cs-fixer fix --dry-run
